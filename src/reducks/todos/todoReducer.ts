@@ -1,0 +1,21 @@
+import { createReducer } from "@reduxjs/toolkit"
+import * as actions from "./actions"
+import { TodoState } from "./types"
+
+const initialState: TodoState = {
+  allIds: [],
+  byIds: {}
+}
+
+const todosReducer = createReducer(initialState, (builder) => {
+  builder
+    .addCase(actions.addTodo, (state, action) => {
+      const { id, contents } = action.payload
+      state.allIds.push(id)
+      state.byIds[id] = {contents, completed: false}
+    })
+    .addCase(actions.toggleTodo, (state,action) => {
+      const { id } = action.payload
+      state.byIds[id].completed = !state.byIds[id].completed
+    })
+})
