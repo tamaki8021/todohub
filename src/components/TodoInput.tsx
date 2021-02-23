@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../reducks/store/hooks";
 import { addTodo } from "../reducks/todos/todoSlice";
 import { TextField, FormControl, Button } from "@material-ui/core";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const AddTodo: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const [input, setInput] = useState("");
 
