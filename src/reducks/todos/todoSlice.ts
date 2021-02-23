@@ -13,8 +13,7 @@ const todosSlice = createSlice({
   reducers: {
     addTodo: {
       reducer: (state = initialState , action: PayloadAction<{id: string, contents:string}>) => {
-        const id = action.payload.id
-        const contents = action.payload.contents
+        const { id, contents } = action.payload
 
         const byId: TodoItemState = {contents,completed:false}
 
