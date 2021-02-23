@@ -1,5 +1,6 @@
 import { combineReducers } from '@reduxjs/toolkit'
-import todoSlice from './todoSlice'
+import todoSlice from '../todos/slice'
+import visibilityFilter from '../filter/Slice'
 
 const rootReducer = combineReducers({
   todos: todoSlice

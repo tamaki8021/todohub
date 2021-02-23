@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useAppDispatch } from "../reducks/store/hooks";
-import { addTodo } from "../reducks/todos/todoSlice";
+import { addTodo } from "../reducks/todos/slice";
 import { TextField, FormControl, Button } from "@material-ui/core";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import AddToPhotosIcon from "@material-ui/icons/AddToPhotos";
