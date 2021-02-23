@@ -1,39 +1,36 @@
 import React, { useState } from "react";
-import { useDispatch } from 'react-redux'
-import { addTodo } from '../reducks/todos/todoSlice'
+import { useDispatch } from "react-redux";
+import { addTodo } from "../reducks/todos/todoSlice";
 import { TextField, FormControl, Button } from "@material-ui/core";
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import AddToPhotosIcon from '@material-ui/icons/AddToPhotos';
+import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import AddToPhotosIcon from "@material-ui/icons/AddToPhotos";
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
-  root: {
-
-  },
-  button: {
-
-  }
-
-}))
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {},
+    button: {},
+  })
+);
 
 const AddTodo: React.FC = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const [input, setInput] = useState('')
+  const [input, setInput] = useState("");
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInput(event.target.value);
   };
 
   const handleSubmit = () => {
-    dispatch(addTodo(input))
-    setInput('')
-  }
+    dispatch(addTodo(input));
+    setInput("");
+  };
 
   const keyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-      if (e.keyCode === 13) {
-        handleSubmit()
-      }
-  }
+    if (e.keyCode === 13) {
+      handleSubmit();
+    }
+  };
 
   return (
     <div>
@@ -44,12 +41,18 @@ const AddTodo: React.FC = () => {
           placeholder="New Task?"
           multiline
           variant="outlined"
+          InputLabelProps={{ shrink: true }}
           onKeyDown={keyPress}
           onChange={handleChange}
         />
       </FormControl>
-      <Button variant="contained" disabled={!input} endIcon={<AddToPhotosIcon />} onClick={handleSubmit}>
-          追加
+      <Button
+        variant="contained"
+        disabled={!input}
+        endIcon={<AddToPhotosIcon />}
+        onClick={handleSubmit}
+      >
+        追加
       </Button>
     </div>
   );

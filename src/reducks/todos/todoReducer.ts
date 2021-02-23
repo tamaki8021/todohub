@@ -16,6 +16,7 @@ const todosReducer = createReducer(initialState, (builder) => {
     })
     .addCase(actions.toggleTodo, (state,action) => {
       const { id } = action.payload
-      state.byIds[id].completed = !state.byIds[id].completed
+      const todo = state.byIds[id] 
+      todo.completed = !todo.completed
     })
 })
