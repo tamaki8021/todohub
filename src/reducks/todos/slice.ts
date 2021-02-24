@@ -30,7 +30,7 @@ const todosSlice = createSlice({
 
       const todo = state.allIds.find((todo) => todo === action.payload.id)
       if (todo) {
-        byIds.todo.completed = !byIds.todo.completed
+        byIds[todo].completed = !byIds[todo].completed
       }
     },
     editTodo: (state: TodoState, action: PayloadAction<TodoItem>) => {
