@@ -8,6 +8,7 @@ import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import RatingsProvide from "./UIkit/RatingsProvide";
 import { useAppDispatch } from "../reducks/store/hooks";
 import { toggleTodo, editTodo } from "../reducks/todos/slice";
+import { returnCodeToBr } from '../functions/common'
 
 type Props = {
   todo: TodoItem;
@@ -15,8 +16,12 @@ type Props = {
 
 const useStyles = makeStyles({
   root: {
-    minWidth: 275,
+    width: 275,
+    backgroundColor: 'rgba(255,245,145,1)'
   },
+  cardAction: {
+    justifyContent: 'space-between'
+  }
 });
 
 const TodoItems: React.FC<Props> = ({ todo }) => {
@@ -38,20 +43,23 @@ const TodoItems: React.FC<Props> = ({ todo }) => {
   };
 
   return (
-    <Card className={classes.root}>
+    <Card className={classes.root} >
       <CardContent onClick={() => setEditContents(todo.contents)}>
         {editContents !== "" ? (
           <TextField
             InputLabelProps={{ shrink: true }}
             label="Edit task"
             value={editContents}
+            multiline
+            rows={4}
             onChange={handleChange}
           />
         ) : (
-          <Typography>{todo.contents}</Typography>
+          <Typography component="p" >{returnCodeToBr(todo.contents)}</Typography>
         )}
       </CardContent>
-      <CardActions>
+      <CardActions className={classes.cardAction} >
+        <RatingsProvide />
         {editContents !== "" ? (
           <div>
           <IconButton onClick={handleEdit} >
@@ -71,7 +79,6 @@ const TodoItems: React.FC<Props> = ({ todo }) => {
         </IconButton>
         )
         }
-        <RatingsProvide />
       </CardActions>
     </Card>
   );

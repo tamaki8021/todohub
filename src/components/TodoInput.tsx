@@ -7,13 +7,22 @@ import AddToPhotosIcon from "@material-ui/icons/AddToPhotos";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {},
-    button: {},
+    form: {
+      margin: '1rem',
+      minWidth: 275
+    },
+    button: {
+      margin: '1rem 1rem 1rem 12rem ',
+      color: '#fff',
+      backgroundColor: theme.palette.primary.main,
+      "&:hover": {backgroundColor: theme.palette.primary.light}
+    },
   })
 );
 
 const AddTodo: React.FC = () => {
   const dispatch = useAppDispatch();
+  const classes = useStyles()
 
   const [input, setInput] = useState("");
 
@@ -26,15 +35,15 @@ const AddTodo: React.FC = () => {
     setInput("");
   };
 
-  const keyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.keyCode === 13) {
-      handleSubmit();
-    }
-  };
+  // const keyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  //   if (e.keyCode === 13) {
+  //     handleSubmit();
+  //   }
+  // };
 
   return (
-    <div>
-      <FormControl>
+    <div className="c-section-container">
+      <FormControl className={classes.form}>
         <TextField
           label="Todo"
           value={input}
@@ -42,13 +51,16 @@ const AddTodo: React.FC = () => {
           multiline
           variant="outlined"
           InputLabelProps={{ shrink: true }}
-          onKeyDown={keyPress}
+          // onKeyDown={keyPress}
           onChange={handleChange}
         />
       </FormControl>
       <Button
+        className={classes.button}
         variant="contained"
         disabled={!input}
+        size='large'
+        disableElevation
         endIcon={<AddToPhotosIcon />}
         onClick={handleSubmit}
       >
