@@ -8,6 +8,5 @@ const rootReducer = combineReducers({
   visibilityFilter: visibilityFilterSlice
 })
 
-export type RootState = ReturnType<typeof rootReducer>
 
 export default rootReducer
