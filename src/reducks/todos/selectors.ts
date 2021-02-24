@@ -1,10 +1,4 @@
-import { State } from './types'
-
-export type TodoItem = {
-  contents: string;
-  completed: boolean;
-  id: string
-}
+import { State, TodoItem } from './types'
 
 export const getTodoList = (store: State): Array<string> =>
   store && store.todos ? store.todos.allIds : []

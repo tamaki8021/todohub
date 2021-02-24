@@ -1,9 +1,11 @@
 import { combineReducers } from '@reduxjs/toolkit'
 import todoSlice from '../todos/slice'
-import visibilityFilter from '../filter/Slice'
+import visibilityFilterSlice from '../filter/Slice'
+
 
 const rootReducer = combineReducers({
-  todos: todoSlice
+  todos: todoSlice,
+  visibilityFilter: visibilityFilterSlice
 })
 
 export type RootState = ReturnType<typeof rootReducer>

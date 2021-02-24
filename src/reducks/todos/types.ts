@@ -12,6 +12,12 @@ export type TodoItemState = {
   completed: boolean;
 } 
 
+export type TodoItem = {
+  contents: string;
+  completed: boolean;
+  id: string
+}
+
 //state
 export type State = {
   visibilityFilter: VisibilityFilterTypes;
