@@ -1,5 +1,4 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import React, {useState} from "react";
 import Rating from "@material-ui/lab/Rating";
 import Box from "@material-ui/core/Box";
 
@@ -16,32 +15,22 @@ const labels: { [index: string]: string } = {
   5: "Excellent+",
 };
 
-const useStyles = makeStyles({
-  root: {
-    width: 200,
-    display: "flex",
-    alignItems: "center",
-  },
-});
 
-const RatingsProvide = () => {
-  const [value, setValue] = React.useState<number | null>(2);
-  const [hover, setHover] = React.useState(-1);
-  const classes = useStyles();
+
+const RatingsProvide = (props: any) => {
+  const [hover, setHover] = useState(-1);
+  const { value } = props
 
   return (
     <div>
       <Rating
         name="hover-feedback"
-        value={value}
+        value={props.value}
         precision={0.5}
-        onChange={(event, newValue) => {
-          setValue(newValue);
-        }}
+        onChange={props.onChange}
         onChangeActive={(event, newHover) => {
           setHover(newHover);
-        }}
-      />
+        }}      />
       {value !== null && (
         <Box ml={2}>{labels[hover !== -1 ? hover : value]}</Box>
       )}
