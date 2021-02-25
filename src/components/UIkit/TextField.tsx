@@ -1,7 +1,7 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField'
 
-type Props = {
+export type TextProps = {
   fullWidth: boolean,
   label: string,
   multiline: boolean,
@@ -12,7 +12,7 @@ type Props = {
   onChange: Function
 }
 
-const TextInput: React.FC<Props> = (props: any) => {
+const TextInput: React.FC<TextProps> = (props: any) => {
   return (
     <TextField
       fullWidth={props.fullWidth}
