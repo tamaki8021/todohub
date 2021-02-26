@@ -30,3 +30,14 @@
   max-width: 520px;
   width: calc(100% - 2rem); 
 }
+
+
+.u-text-center {
+  text-align: center;
+}
+
+.u-text__headline {
+  color: #4dd0e1;
+  font-size: 1.563rem;
+  margin: 0 auto 1rem auto;
+}
