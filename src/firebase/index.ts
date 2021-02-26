@@ -10,6 +10,6 @@ if (firebase.apps.length === 0) {
 }
 
 export const auth = firebase.auth()
-export const db = firebase.database()
+export const db = firebase.firestore()
 export const functions = firebase.functions()
 export const FirebaseTimestamp = firebase.firestore.Timestamp
