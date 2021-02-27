@@ -29,6 +29,8 @@ const TodoItems: React.FC<Props> = ({ todo }) => {
   const dispatch = useAppDispatch();
 
   const [editContents, setEditContents] = useState("");
+  const [value, setValue] = useState<number | null>(0);
+
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEditContents(e.target.value)
@@ -41,6 +43,10 @@ const TodoItems: React.FC<Props> = ({ todo }) => {
     dispatch(editTodo(newTodo));
     setEditContents("");
   };
+
+  const handleRatings = (e: React.ChangeEvent<HTMLInputElement>, newValue: number) => {
+    setValue(newValue); 
+  }
 
   return (
     <Card className={classes.root} >
@@ -59,7 +65,7 @@ const TodoItems: React.FC<Props> = ({ todo }) => {
         )}
       </CardContent>
       <CardActions className={classes.cardAction} >
-        <RatingsProvide />
+        <RatingsProvide value={value} onChange={handleRatings} />
         {editContents !== "" ? (
           <div>
           <IconButton onClick={handleEdit} >

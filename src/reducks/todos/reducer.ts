@@ -7,7 +7,7 @@ const initialState: TodoState = {
   byIds: {}
 }
 
-const todosReducer = createReducer(initialState, (builder) => {
+export const todosReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(actions.addTodo, (state, action) => {
       const { id, contents } = action.payload

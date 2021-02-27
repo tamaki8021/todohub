@@ -1,3 +1,17 @@
+/*********** Module Spacer ***********/
+.module-spacer--extra-extra-small {
+  height: 12px
+}
+.module-spacer--extra-small {
+  height: 12px
+}
+.module-spacer--small {
+  height: 20px
+}
+.module-spacer--medium {
+  height: 32px
+}
+
 .c-main {
   padding: 96px 0;
 }
@@ -8,4 +22,22 @@
   padding: 1rem;
   height: auto;
   width: calc(100% - 2rem);
+}
+
+.c-section-tabs {
+  margin: 1.5rem auto;
+  padding: 1rem;
+  max-width: 520px;
+  width: calc(100% - 2rem); 
+}
+
+
+.u-text-center {
+  text-align: center;
+}
+
+.u-text__headline {
+  color: #4dd0e1;
+  font-size: 1.563rem;
+  margin: 0 auto 1rem auto;
 }
