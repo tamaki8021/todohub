@@ -1,5 +1,5 @@
 import { createAction } from "@reduxjs/toolkit"
-// import { VisibilityFilterTypes } from "../todos/types"
+// import { VisibilityFilterTypes } from "./types"
 
 export const setFilter = createAction(
   "filter/set",

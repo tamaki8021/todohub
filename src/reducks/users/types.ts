@@ -1,4 +1,4 @@
-export type UserState = {
+export interface UserState{
   isSignedIn: boolean,
   role: string,
   uid: string,
