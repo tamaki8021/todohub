@@ -3,6 +3,7 @@ import { useAppDispatch } from "../reducks/store/hooks";
 import { PrimaryButton, TextInput } from "../components/UIkit";
 import { TextProps } from "../components/UIkit/TextField";
 import { ButtonProps } from "../components/UIkit/PrimaryButton";
+import { fetchUser } from "../reducks/users/asyncThunk";
 // import { signIn } from '../reducks/users/operations'
 
 const Title = React.memo(() => (
@@ -78,14 +79,14 @@ const SignIn = () => {
         onChange={inputPassword}
       />
 
-      {/* <div className="u-text-center">
+      <div className="u-text-center">
         <Button
           label={"ログインする"}
           onClick={() =>
-            dispatch(signIn(email, password))
+            dispatch(fetchUser({email, password}))
           }
         />
-      </div> */}
+      </div>
     </div>
   );
 };
