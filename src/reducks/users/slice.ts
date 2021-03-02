@@ -4,7 +4,6 @@ import { fetchUser } from './asyncThunk'
 
 const initialState: UserState = {
   isSignedIn: false,
-  role: '',
   uid: '',
   username: '',
 }
@@ -23,10 +22,6 @@ export const userSlice = createSlice({
       state = action.payload
     }
   },
-  // extraReducers(builder) {
-  //   builder.addCase(fetchUser.fulfilled, (state, action) => {
-  //   })
-  // }
 })
 
 export const { signInAction } = userSlice.actions

@@ -36,7 +36,6 @@ export const signUp = (
           const userInitialData = {
             created_at: timestamp,
             email: email,
-            role: "customer",
             uid: uid,
             updated_at: timestamp,
             username: username,
@@ -51,36 +50,37 @@ export const signUp = (
   };
 };
 
-// export const signIn = (email: string, password: string) => {
-//   return async (dispatch: any) => {
-//     if (email === "" || password === "") {
-//       alert("必須項目が未入力です");
-//       return false;
-//     }
+export const signIn = (email: string, password: string) => {
+  return async (dispatch: any) => {
+    if (email === "" || password === "") {
+      alert("必須項目が未入力です");
+      return false;
+    }
 
-//     await auth.signInWithEmailAndPassword(email, password).then((result) => {
-//       const user = result.user;
+    await auth.signInWithEmailAndPassword(email, password).then((result) => {
+      const user = result.user;
 
-//       if (user) {
-//         const uid = user.uid;
-//         db.collection("users")
-//           .doc(uid)
-//           .get()
-//           .then((snapshot) => {
-//             const data = snapshot.data();
+      if (user) {
+        const uid = user.uid;
+        db.collection("users")
+          .doc(uid)
+          .get()
+          .then((snapshot) => {
+            const data = snapshot.data();
 
-//             dispatch(
-//               signInAction({
-//                 isSignedIn: true,
-//                 role: data.role,
-//                 uid: uid,
-//                 username: data.username,
-//               })
-//             );
+            if (data) {
+              dispatch(
+                signInAction({
+                  isSignedIn: true,
+                  uid: uid,
+                  username: data.username,
+                })
+              );
+            }
 
-//             dispatch(push("/todo"));
-//           });
-//       }
-//     });
-//   };
-// };
+            dispatch(push("/todo"));
+          });
+      }
+    });
+  };
+};
