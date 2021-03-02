@@ -28,7 +28,7 @@ const SignIn = () => {
     <div>
       <div>
         <h1 className="py-2">Home</h1>
-        <button color="primary" onClick={() => push("/login")}>
+        <button color="primary" onClick={() => push("/signin")}>
           ログインする
         </button>
         {/* {currentUser.username ? authorizedView : unauthorizedView} */}
