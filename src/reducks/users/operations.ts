@@ -1,6 +1,35 @@
 import { push } from "connected-react-router";
 import { auth, db, FirebaseTimestamp } from "../../firebase/index";
+import { AppDispatch } from '../store/store'
 import { signInAction } from "./slice";
+
+export const listenAuthState = () => {
+  return async (dispatch: AppDispatch) => {
+    return auth.onAuthStateChanged(user => {
+      if (user) {
+        const uid = user.uid;
+        db.collection("users")
+          .doc(uid)
+          .get()
+          .then((snapshot) => {
+            const data = snapshot.data();
+
+            if (data) {
+              dispatch(
+                signInAction({
+                  isSignedIn: true,
+                  uid: uid,
+                  username: data.username,
+                })
+              );
+            } else {
+              dispatch(push("/signin"));
+            }
+          });
+      } 
+    })
+  }
+}
 
 export const signUp = (
   username: string,
@@ -8,7 +37,7 @@ export const signUp = (
   password: string,
   confiramPassword: string
 ) => {
-  return async (dispatch: any) => {
+  return async (dispatch: AppDispatch) => {
     if (
       username === "" ||
       email === "" ||
@@ -51,7 +80,7 @@ export const signUp = (
 };
 
 export const signIn = (email: string, password: string) => {
-  return async (dispatch: any) => {
+  return async (dispatch: AppDispatch) => {
     if (email === "" || password === "") {
       alert("必須項目が未入力です");
       return false;
