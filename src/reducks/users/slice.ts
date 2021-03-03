@@ -13,10 +13,14 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     signInAction: (state, action: PayloadAction<UserState>) => {
-      state = action.payload
+      state.isSignedIn = action.payload.isSignedIn
+      state.uid = action.payload.uid
+      state.username = action.payload.username
     },
     signOutAction: (state) => {
       state.isSignedIn = false
+      state.uid = ''
+      state.username = '' 
     }
   },
 })
