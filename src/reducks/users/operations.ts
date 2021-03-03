@@ -1,7 +1,7 @@
 import { push } from "connected-react-router";
 import { auth, db, FirebaseTimestamp } from "../../firebase/index";
 import { AppDispatch } from '../store/store'
-import { signInAction } from "./slice";
+import { signInAction, signOutAction } from "./slice";
 
 export const listenAuthState = () => {
   return async (dispatch: AppDispatch) => {
@@ -113,3 +113,13 @@ export const signIn = (email: string, password: string) => {
     });
   };
 };
+
+export const signOut = () => {
+  return async (dispatch: AppDispatch) => {
+    auth.signOut()
+      .then(() => {
+        dispatch(signOutAction())
+        dispatch(push('/'))
+      })
+  }
+}
