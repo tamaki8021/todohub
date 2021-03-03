@@ -1,6 +1,35 @@
 import { push } from "connected-react-router";
 import { auth, db, FirebaseTimestamp } from "../../firebase/index";
-import { signInAction } from "./slice";
+import { AppDispatch } from '../store/store'
+import { signInAction, signOutAction } from "./slice";
+
+export const listenAuthState = () => {
+  return async (dispatch: AppDispatch) => {
+    return auth.onAuthStateChanged(user => {
+      if (user) {
+        const uid = user.uid;
+        db.collection("users")
+          .doc(uid)
+          .get()
+          .then((snapshot) => {
+            const data = snapshot.data();
+
+            if (data) {
+              dispatch(
+                signInAction({
+                  isSignedIn: true,
+                  uid: uid,
+                  username: data.username,
+                })
+              );
+            }
+          });
+      } else {
+        dispatch(push("/"));
+      }
+    })
+  }
+}
 
 export const signUp = (
   username: string,
@@ -8,7 +37,7 @@ export const signUp = (
   password: string,
   confiramPassword: string
 ) => {
-  return async (dispatch: any) => {
+  return async (dispatch: AppDispatch) => {
     if (
       username === "" ||
       email === "" ||
@@ -36,7 +65,6 @@ export const signUp = (
           const userInitialData = {
             created_at: timestamp,
             email: email,
-            role: "customer",
             uid: uid,
             updated_at: timestamp,
             username: username,
@@ -51,36 +79,50 @@ export const signUp = (
   };
 };
 
-// export const signIn = (email: string, password: string) => {
-//   return async (dispatch: any) => {
-//     if (email === "" || password === "") {
-//       alert("必須項目が未入力です");
-//       return false;
-//     }
+export const signIn = (email: string, password: string) => {
+  return async (dispatch: AppDispatch) => {
+    if (email === "" || password === "") {
+      alert("必須項目が未入力です");
+      return false;
+    }
 
-//     await auth.signInWithEmailAndPassword(email, password).then((result) => {
-//       const user = result.user;
+    await auth.signInWithEmailAndPassword(email, password).then((result) => {
+      const user = result.user;
 
-//       if (user) {
-//         const uid = user.uid;
-//         db.collection("users")
-//           .doc(uid)
-//           .get()
-//           .then((snapshot) => {
-//             const data = snapshot.data();
+      if (user) {
+        const uid = user.uid;
+        db.collection("users")
+          .doc(uid)
+          .get()
+          .then((snapshot) => {
+            const data = snapshot.data();
 
-//             dispatch(
-//               signInAction({
-//                 isSignedIn: true,
-//                 role: data.role,
-//                 uid: uid,
-//                 username: data.username,
-//               })
-//             );
+            if (data) {
+              dispatch(
+                signInAction({
+                  isSignedIn: true,
+                  uid: uid,
+                  username: data.username,
+                })
+              );
+            } else {
+              console.log('失敗');
+              
+            }
 
-//             dispatch(push("/todo"));
-//           });
-//       }
-//     });
-//   };
-// };
+            dispatch(push("/todo"));
+          });
+      }
+    });
+  };
+};
+
+export const signOut = () => {
+  return async (dispatch: AppDispatch) => {
+    auth.signOut()
+      .then(() => {
+        dispatch(signOutAction())
+        dispatch(push('/'))
+      })
+  }
+}

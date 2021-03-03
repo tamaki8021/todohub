@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { VISIBILITY_FILTERS } from "../../constants";
-import { VisibilityFilterTypes } from "../todos/types";
+import { VisibilityFilterTypes } from "./types";
 
 const initialState: VisibilityFilterTypes = VISIBILITY_FILTERS.ALL;
 

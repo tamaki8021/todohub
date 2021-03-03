@@ -1,18 +1,15 @@
 import React from "react";
-import { ConnectedRouter } from 'connected-react-router'
-import { history } from './reducks/store/store'
-import TodoInput from "./components/TodoInput";
-import TodoList from "./components/TodoList";
-import VisibilityFilters from "./components/VisibilityFilters";
 import Router from './Router'
+import { Header}  from './components/Header'
 
 const App: React.FC = () => {
   return (
-    <ConnectedRouter history={history}>
+    <React.Fragment>
+      <Header />
       <div className="c-main">
         <Router />
       </div>
-    </ConnectedRouter>
+    </React.Fragment>
   );
 };
 

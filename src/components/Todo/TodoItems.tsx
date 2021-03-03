@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import { TodoItem } from "../reducks/todos/types";
+import { TodoItem } from "../../reducks/todos/types";
 import { makeStyles } from "@material-ui/core/styles";
 import { Card, CardActions, CardContent, IconButton, Typography, TextField } from "@material-ui/core";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import SystemUpdateAltIcon from '@material-ui/icons/SystemUpdateAlt';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
-import RatingsProvide from "./UIkit/RatingsProvide";
-import { useAppDispatch } from "../reducks/store/hooks";
-import { toggleTodo, editTodo } from "../reducks/todos/slice";
-import { returnCodeToBr } from '../functions/common'
+import RatingsProvide from "../UIkit/RatingsProvide";
+import { useAppDispatch } from "../../reducks/store/hooks";
+import { toggleTodo, editTodo } from "../../reducks/todos/slice";
+import { returnCodeToBr } from '../../functions/common'
 
 type Props = {
   todo: TodoItem;

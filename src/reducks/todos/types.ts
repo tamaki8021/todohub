@@ -1,25 +1,23 @@
-import { VISIBILITY_FILTERS } from '../../constants'
-
-export type VisibilityFilterTypes = typeof VISIBILITY_FILTERS[keyof typeof VISIBILITY_FILTERS]
+import { VisibilityFilterTypes } from '../filter/types'
 
 // todos
-export type TodoState = {
+export interface TodoState {
   allIds: Array<string>;
   byIds: { [id: string] : TodoItemState}
 };
-export type TodoItemState = {
+export interface TodoItemState {
   contents: string;
   completed: boolean;
 } 
 
-export type TodoItem = {
+export interface TodoItem {
   contents: string;
   completed: boolean;
   id: string
 }
 
 //state
-export type State = {
+export interface State {
   visibilityFilter: VisibilityFilterTypes;
   todos: TodoState
 }
