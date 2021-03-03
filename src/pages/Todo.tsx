@@ -1,5 +1,5 @@
 import React from 'react'
-import { TodoInput, TodoList, VisibilityFilter} from '../components/index'
+import { TodoInput, TodoList, VisibilityFilter} from '../components/Todo/index'
 
 const Todo: React.FC = () => {
 
