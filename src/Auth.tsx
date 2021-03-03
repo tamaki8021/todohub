@@ -1,25 +1,23 @@
-import { readConfigFile } from "typescript";
-import React, {useEffect} from 'react'
-import { useAppSelector, useAppDispatch } from './reducks/store/hooks'
-import { listenAuthState } from './reducks/users/operations'
+import React, { useEffect } from "react";
+import { useAppSelector, useAppDispatch } from "./reducks/store/hooks";
+import { listenAuthState } from "./reducks/users/operations";
 
-const Auth = ({chirdren}: any) => {
-  const dispatch = useAppDispatch()
-  const isSignedIn = useAppSelector((state) => state.user.isSignedIn)
+const Auth = ({ children }: any) => {
+  const dispatch = useAppDispatch();
+  const isSignedIn = useAppSelector((state) => state.user.isSignedIn);
 
-useEffect(() => {
-  if (!isSignedIn) {
-    dispatch(listenAuthState())
-  }
-}, [])
+  useEffect(() => {
+    if (!isSignedIn) {
+      dispatch(listenAuthState());
+    }
+  }, []);
 
   if (!isSignedIn) {
     //listenAuthStateで'/signin'にリダイレクトされているからからのタグを返す
-    return <></>
+    return <></>;
   } else {
-    return chirdren
+    return children;
   }
+};
 
-}
-
-export default Auth
+export default Auth;
