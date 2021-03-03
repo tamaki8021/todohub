@@ -22,11 +22,11 @@ export const listenAuthState = () => {
                   username: data.username,
                 })
               );
-            } else {
-              dispatch(push("/signin"));
             }
           });
-      } 
+      } else {
+        dispatch(push("/"));
+      }
     })
   }
 }
@@ -105,6 +105,9 @@ export const signIn = (email: string, password: string) => {
                   username: data.username,
                 })
               );
+            } else {
+              console.log('失敗');
+              
             }
 
             dispatch(push("/todo"));
