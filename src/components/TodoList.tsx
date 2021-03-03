@@ -15,9 +15,9 @@ const useStyles = makeStyles({
 
 const TodoList = () => {
   const classes = useStyles();
-  const selector = useAppSelector((state) => state.todo);
-  const selectorFilter = useAppSelector((state) => state.todo.visibilityFilter);
-  const todos = selectVisibleTodos(selector, selectorFilter);
+  const State = useAppSelector((state) => state.todo);
+  const Filter = useAppSelector((state) => state.todo.visibilityFilter);
+  const todos = selectVisibleTodos(State, Filter);
 
   return (
     <div className={classes.root}>
