@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { useAppDispatch } from "../reducks/store/hooks";
-import { setFilter } from "../reducks/filter/slice";
-import { VISIBILITY_FILTERS } from "../constants";
+import { useAppDispatch } from "../../reducks/store/hooks";
+import { setFilter } from "../../reducks/filter/slice";
+import { VISIBILITY_FILTERS } from "../../constants";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 

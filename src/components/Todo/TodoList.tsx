@@ -1,9 +1,9 @@
 import React from "react";
-import { useAppSelector } from "../reducks/store/hooks";
+import { useAppSelector } from "../../reducks/store/hooks";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import TodoItems from "./TodoItems";
-import { selectVisibleTodos } from "../reducks/filter/selector";
+import { selectVisibleTodos } from "../../reducks/filter/selector";
 
 const useStyles = makeStyles({
   root: {
