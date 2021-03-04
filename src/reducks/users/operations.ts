@@ -126,3 +126,22 @@ export const signOut = () => {
       })
   }
 }
+
+export const resetPassword = (email: string) => {
+  return async (dispatch: AppDispatch) => {
+    if (email === "") {
+      alert("必須項目が未入力です")
+      return false
+    } else {
+      auth.sendPasswordResetEmail(email)
+        .then(() => {
+          alert('入力されたパスワードにリセット用のメールを送りました')
+          dispatch(push('/signin'))
+        }).catch(() => {
+          alert('パスワードリセットに失敗しました。通信環境を確認してください。')
+        })
+    }  
+    
+    
+  }
+}
