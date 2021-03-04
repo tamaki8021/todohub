@@ -1,5 +1,6 @@
 import { push } from "connected-react-router";
 import { auth, db, FirebaseTimestamp } from "../../firebase/index";
+import { isValidEmailFormat, isValidRequiredInput } from '../../functions/common'
 import { AppDispatch } from '../store/store'
 import { signInAction, signOutAction } from "./slice";
 
@@ -38,20 +39,28 @@ export const signUp = (
   confiramPassword: string
 ) => {
   return async (dispatch: AppDispatch) => {
+
     if (
-      username === "" ||
-      email === "" ||
-      password === "" ||
-      confiramPassword === ""
+      !isValidRequiredInput(email, password, confiramPassword)
     ) {
       alert("必須項目が未入力です");
       return false;
+    }
+
+    if(!isValidEmailFormat) {
+      alert('メールアドレスの形式が不正です。\nもう一度確認してお試しください。')
+      return false
     }
 
     if (password !== confiramPassword) {
       alert("パスワードが一致しません。もう一度お試しください");
       return false;
     }
+
+    if (password.length < 6) {
+      alert('パスワードは6文字以上で入力してください。')
+      return false
+  }
 
     return auth
       .createUserWithEmailAndPassword(email, password)
@@ -75,15 +84,23 @@ export const signUp = (
             .set(userInitialData)
             .then(() => dispatch(push("/todo")));
         }
-      });
+      }).catch(() => {
+        alert('アカウント登録に失敗しました。\nもう一度確認してお試しください。')
+      })
   };
 };
 
 export const signIn = (email: string, password: string) => {
   return async (dispatch: AppDispatch) => {
-    if (email === "" || password === "") {
+
+    if (!isValidRequiredInput(email,password)) {
       alert("必須項目が未入力です");
       return false;
+    }
+
+    if(!isValidEmailFormat) {
+      alert('メールアドレスの形式が不正です。\nもう一度確認してお試しください。')
+      return false
     }
 
     await auth.signInWithEmailAndPassword(email, password).then((result) => {
@@ -106,14 +123,14 @@ export const signIn = (email: string, password: string) => {
                 })
               );
             } else {
-              console.log('失敗');
-              
+              throw new Error('ユーザーデータが存在しません')
             }
-
             dispatch(push("/todo"));
           });
       }
-    });
+    }).catch(() => {
+      alert('メールアドレス、またはパスワードが間違っています。\nもう一度確認してお試しください。')
+    })
   };
 };
 
