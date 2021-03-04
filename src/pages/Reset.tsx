@@ -1,9 +1,10 @@
 import React, { useState, useCallback } from "react";
 import { useAppDispatch } from "../reducks/store/hooks";
+import { Link } from "react-router-dom";
 import { PrimaryButton, TextInput } from "../components/UIkit";
 import { TextProps } from "../components/UIkit/TextField";
 import { ButtonProps } from "../components/UIkit/PrimaryButton";
-import { resetPassword } from '../reducks/users/operations'
+import { resetPassword } from "../reducks/users/operations";
 
 const Title = React.memo(() => (
   <h2 className="u-text__headline u-text-center">パスワードリセット</h2>
@@ -43,7 +44,7 @@ const Reset = () => {
   );
 
   return (
-    <div>
+    <div className="c-section-container">
       <Title />
 
       <div className="module-spacer--medium"></div>
@@ -66,6 +67,10 @@ const Reset = () => {
           label={"パスワードリセット"}
           onClick={() => dispatch(resetPassword(email))}
         />
+
+        <div className="module-spacer--medium"></div>
+
+        <Link to="/signin">ログイン画面へ戻る</Link>
       </div>
     </div>
   );

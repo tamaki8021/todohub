@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from "react";
 import { useAppDispatch } from "../reducks/store/hooks";
+import { Link } from 'react-router-dom'
 import { PrimaryButton, TextInput } from "../components/UIkit";
 import { TextProps } from "../components/UIkit/TextField";
 import { ButtonProps } from "../components/UIkit/PrimaryButton";
@@ -125,6 +126,10 @@ const SignUp = () => {
             dispatch(signUp(username, email, password, confiramPassword))
           }
         />
+
+        <div className="module-spacer--medium"></div>
+
+        <Link to="signin">アカウントをお持ちの方はこちら</Link>
       </div>
     </div>
   );

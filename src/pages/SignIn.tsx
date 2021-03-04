@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from "react";
 import { useAppDispatch } from "../reducks/store/hooks";
+import { Link } from 'react-router-dom'
 import { PrimaryButton, TextInput } from "../components/UIkit";
 import { TextProps } from "../components/UIkit/TextField";
 import { ButtonProps } from "../components/UIkit/PrimaryButton";
@@ -78,6 +79,8 @@ const SignIn = () => {
         onChange={inputPassword}
       />
 
+      <div className="module-spacer--medium"></div>
+
       <div className="u-text-center">
         <Button
           label={"ログインする"}
@@ -85,6 +88,12 @@ const SignIn = () => {
             dispatch(signIn(email, password))
           }
         />
+
+        <div className="module-spacer--medium"></div>
+
+        <Link to="signup">アカウントをお持ちでない方はこちら</Link>
+        <div className="module-spacer--small"></div>
+        <Link to="signin/reset">パスワードをお忘れの方はこちら</Link>
       </div>
     </div>
   );
