@@ -7,6 +7,8 @@ import Button from "@material-ui/core/Button";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import MenuIcon from '@material-ui/icons/Menu';
 import { signOut } from "../../reducks/users/operations";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -67,10 +69,11 @@ const HeaderMenu = () => {
         </IconButton>
         <p>Profile</p>
       </MenuItem>
-      <MenuItem>
-        <Button color="inherit" onClick={() => dispatch(signOut())}>
-          signout
-        </Button>
+      <MenuItem onClick={() => dispatch(signOut())}>
+        <IconButton color="inherit" >
+          <ExitToAppIcon />
+        </IconButton>
+        <p>ログアウト</p>
       </MenuItem>
     </Menu>
   );
@@ -78,7 +81,7 @@ const HeaderMenu = () => {
   return (
     <div>
       <div className={classes.sectionDesktop}>
-        <Button color="inherit" onClick={() => dispatch(signOut())}>
+        <Button variant='contained' color="primary" startIcon={<ExitToAppIcon />}  onClick={() => dispatch(signOut())}>
           signout
         </Button>
         <IconButton
@@ -98,7 +101,7 @@ const HeaderMenu = () => {
           onClick={handleMobileMenuOpen}
           color="inherit"
         >
-          <MoreIcon />
+          <MenuIcon />
         </IconButton>
       </div>
       {renderMobilMenu}
