@@ -4,10 +4,9 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
-import { signOut } from '../../reducks/users/operations'
-import { useAppDispatch } from '../../reducks/store/hooks'
+import { useAppDispatch, useAppSelector } from "../../reducks/store/hooks";
+import { push } from 'connected-react-router'
+import { HeaderMenu } from './index'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -25,24 +24,25 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const Header = () => {
   const classes = useStyles();
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
+  const isSignedIn = useAppSelector((state) => state.user.isSignedIn);
 
   return (
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="menu"
-          >
-            <MenuIcon />
-          </IconButton>
           <Typography variant="h6" className={classes.title}>
             News
           </Typography>
-          <Button color="inherit" onClick={() => dispatch(signOut())}>signout</Button>
+          {isSignedIn ? (
+            <HeaderMenu />
+          ):(
+            <div>
+              <Button color='inherit' onClick={() => dispatch(push('/signin'))}>ログイン</Button>
+              <Button color='inherit' onClick={() => dispatch(push('/signup'))} >登録する</Button>
+            </div>
+          )
+          }
         </Toolbar>
       </AppBar>
     </div>
