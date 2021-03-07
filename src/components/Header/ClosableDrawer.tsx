@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useAppDispatch } from "../../reducks/store/hooks";
+import { push } from 'connected-react-router'
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
 import AccountCircle from "@material-ui/icons/AccountCircle";
@@ -83,7 +84,7 @@ const ClosableDrawer = () => {
         >
           signout
         </Button>
-        <IconButton color="inherit">
+        <IconButton color="inherit" onClick={() => dispatch(push('todo/mypage'))}>
           <AccountCircle />
         </IconButton>
       </div>

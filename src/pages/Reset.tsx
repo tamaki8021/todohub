@@ -31,7 +31,7 @@ const Button = React.memo<ButtonProps>(({ label, onClick }) => {
   return <PrimaryButton label={label} onClick={onClick} />;
 });
 
-const Reset = () => {
+const Reset: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const [email, setEmail] = useState("");

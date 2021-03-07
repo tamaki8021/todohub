@@ -1,10 +1,9 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
 
 import { useAppDispatch } from "../reducks/store/hooks";
 
-const SignIn = () => {
+const SignIn: React.FC = () => {
   const dispatch = useAppDispatch();
   const { push } = useHistory();
 
