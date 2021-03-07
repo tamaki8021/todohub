@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
-import {Home, SignUp, SignIn, Reset, Todo } from './pages'
+import {Home, SignUp, SignIn, Reset, Todo, Userpage } from './pages'
 import Auth from './Auth'
 
 const Router = () => {
@@ -12,6 +12,7 @@ const Router = () => {
         <Route exact path="/signin/reset" component={Reset} />
         <Auth>
           <Route exact path="/todo" component={Todo} />
+          <Route exact path="/todo/mypage" component={Userpage} />
         </Auth>
       </Switch>
   )
