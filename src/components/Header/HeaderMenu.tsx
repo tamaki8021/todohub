@@ -1,18 +1,30 @@
 import React, { useState } from "react";
+import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import { push } from "connected-react-router";
 import { useAppDispatch } from "../../reducks/store/hooks";
-import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
-import IconButton from "@material-ui/core/IconButton";
-import AccountCircle from "@material-ui/icons/AccountCircle";
 import Button from "@material-ui/core/Button";
-import MoreIcon from "@material-ui/icons/MoreVert";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import MenuIcon from '@material-ui/icons/Menu';
-import { signOut } from "../../reducks/users/operations";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
+import IconButton from "@material-ui/core/IconButton";
+import MenuIcon from "@material-ui/icons/Menu";
+import Drawer from "@material-ui/core/Drawer";
+import Hidden from "@material-ui/core/Hidden";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    button: {
+      margin: theme.spacing(2),
+    },
+    menuButton: {
+      marginRight: theme.spacing(2),
+    },
+    drawerPaper: {
+      width: 254,
+    },
+    text: {
+      fontSize: '1.7rem',
+    },
     sectionDesktop: {
       display: "none",
       [theme.breakpoints.up("md")]: {
@@ -29,82 +41,83 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const HeaderMenu = () => {
-  const dispatch = useAppDispatch();
   const classes = useStyles();
+  const dispatch = useAppDispatch();
+  const [mobileOpen, setMobileOpen] = useState(false);
 
-  const [
-    mobileMoreAnchorEl,
-    setMobileMoreAnchorEl,
-  ] = useState<null | HTMLElement>(null);
-
-  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
-  const handleMobileMenuClose = () => {
-    setMobileMoreAnchorEl(null);
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
   };
 
-  const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-    setMobileMoreAnchorEl(event.currentTarget);
-  };
-
-  const mobileMenuId = "primary-search-account-menu-mobile";
-  const renderMobilMenu = (
-    <Menu
-      anchorEl={mobileMoreAnchorEl}
-      anchorOrigin={{ vertical: "top", horizontal: "right" }}
-      id={mobileMenuId}
-      keepMounted
-      transformOrigin={{ vertical: "top", horizontal: "right" }}
-      open={isMobileMenuOpen}
-      onClose={handleMobileMenuClose}
-    >
-      <MenuItem>
-        <IconButton
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
+  const drawer = (
+    <div>
+      <List>
+        <ListItem
+          button
+          onClick={() => {
+            dispatch(push("/signin"));
+            handleDrawerToggle();
+          }}
         >
-          <AccountCircle />
-        </IconButton>
-        <p>Profile</p>
-      </MenuItem>
-      <MenuItem onClick={() => dispatch(signOut())}>
-        <IconButton color="inherit" >
-          <ExitToAppIcon />
-        </IconButton>
-        <p>ログアウト</p>
-      </MenuItem>
-    </Menu>
+          <ListItemText primary="ログイン" classes={{primary: classes.text}} />
+        </ListItem>
+        <ListItem
+          button
+          onClick={() => {
+            dispatch(push("/signup"));
+            handleDrawerToggle();
+          }}
+        >
+          <ListItemText primary="登録する" classes={{primary: classes.text}} />
+        </ListItem>
+      </List>
+    </div>
   );
 
   return (
     <div>
       <div className={classes.sectionDesktop}>
-        <Button variant='contained' color="primary" startIcon={<ExitToAppIcon />}  onClick={() => dispatch(signOut())}>
-          signout
+        <Button
+          className={classes.button}
+          variant="contained"
+          color="primary"
+          onClick={() => dispatch(push("/signin"))}
+        >
+          ログイン
         </Button>
-        <IconButton
-          aria-label="account of current user"
-          aria-controls="menu-appbar"
-          aria-haspopup="true"
-          color="inherit"
+        <Button
+          className={classes.button}
+          variant="contained"
+          color="primary"
+          onClick={() => dispatch(push("/signup"))}
         >
-          <AccountCircle />
-        </IconButton>
+          登録する
+        </Button>
       </div>
-      <div className={classes.sectionMobile}>
-        <IconButton
-          aria-label="show more"
-          aria-controls={mobileMenuId}
-          aria-haspopup="true"
-          onClick={handleMobileMenuOpen}
-          color="inherit"
+
+      <IconButton
+        color="inherit"
+        className={classes.sectionMobile}
+        onClick={handleDrawerToggle}
+      >
+        <MenuIcon />
+      </IconButton>
+      <Hidden smUp implementation="css">
+        <Drawer
+          variant="temporary"
+          anchor="right"
+          open={mobileOpen}
+          onClose={handleDrawerToggle}
+          classes={{
+            paper: classes.drawerPaper,
+          }}
+          ModalProps={{
+            keepMounted: true, // Better open performance on mobile.
+          }}
         >
-          <MenuIcon />
-        </IconButton>
-      </div>
-      {renderMobilMenu}
+          {drawer}
+        </Drawer>
+      </Hidden>
     </div>
   );
 };
