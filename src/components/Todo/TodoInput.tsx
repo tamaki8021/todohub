@@ -13,9 +13,9 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     button: {
       margin: "1rem 1rem 1rem 12rem ",
-      color: "#fff",
-      backgroundColor: theme.palette.primary.main,
-      "&:hover": { backgroundColor: theme.palette.primary.light },
+      // color: "#fff",
+      // backgroundColor: theme.palette.primary.main,
+      // "&:hover": { backgroundColor: theme.palette.primary.light },
     },
   })
 );
@@ -60,7 +60,8 @@ const AddTodo: React.FC = () => {
         variant="contained"
         disabled={!input}
         size="large"
-        disableElevation
+        color="primary"
+        // disableElevation
         endIcon={<AddToPhotosIcon />}
         onClick={handleSubmit}
       >

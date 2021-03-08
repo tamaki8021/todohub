@@ -1,12 +1,21 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
-
+import { push } from 'connected-react-router'
 import { useAppDispatch } from "../reducks/store/hooks";
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 
-const SignIn = () => {
+const useStyles = makeStyles((theme: Theme) => createStyles({
+    root: {
+      width: '100%',
+      minHeight: '100vh',
+      background: 'linear-gradient(-135deg, #0000A1, #B9EDF8)',
+    }
+}))
+
+const SignIn: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { push } = useHistory();
+  const classes = useStyles()
+  // const { push } = useHistory();
 
   // const unauthorizedView = (
   //   <>
@@ -25,10 +34,10 @@ const SignIn = () => {
   // )
 
   return (
-    <div>
+    <div className={classes.root}>
       <div>
-        <h1 className="py-2">Home</h1>
-        <button color="primary" onClick={() => push("/signin")}>
+        <h1 className="u-text__headline u-text-center">Home</h1>
+        <button color="primary" onClick={() => dispatch(push("/signin"))}>
           ログインする
         </button>
         {/* {currentUser.username ? authorizedView : unauthorizedView} */}

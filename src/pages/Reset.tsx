@@ -1,13 +1,13 @@
 import React, { useState, useCallback } from "react";
 import { useAppDispatch } from "../reducks/store/hooks";
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
 import { PrimaryButton, TextInput } from "../components/UIkit";
 import { TextProps } from "../components/UIkit/TextField";
 import { ButtonProps } from "../components/UIkit/PrimaryButton";
-import { signIn } from "../reducks/users/operations";
+import { resetPassword } from "../reducks/users/operations";
 
 const Title = React.memo(() => (
-  <h2 className="u-text__headline u-text-center">ログイン</h2>
+  <h2 className="u-text__headline u-text-center">パスワードリセット</h2>
 ));
 
 const Input = React.memo<TextProps>(
@@ -31,24 +31,16 @@ const Button = React.memo<ButtonProps>(({ label, onClick }) => {
   return <PrimaryButton label={label} onClick={onClick} />;
 });
 
-const SignIn = () => {
-  const dispatch = useAppDispatch()
+const Reset: React.FC = () => {
+  const dispatch = useAppDispatch();
 
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
 
   const inputEmail = useCallback(
     (event) => {
       setEmail(event.target.value);
     },
     [setEmail]
-  );
-
-  const inputPassword = useCallback(
-    (event) => {
-      setPassword(event.target.value);
-    },
-    [setPassword]
   );
 
   return (
@@ -68,35 +60,20 @@ const SignIn = () => {
         onChange={inputEmail}
       />
 
-      <Input
-        fullWidth={true}
-        label={"パスワード"}
-        multiline={false}
-        required={true}
-        rows={1}
-        value={password}
-        type={"password"}
-        onChange={inputPassword}
-      />
-
       <div className="module-spacer--medium"></div>
 
       <div className="u-text-center">
         <Button
-          label={"ログインする"}
-          onClick={() =>
-            dispatch(signIn(email, password))
-          }
+          label={"パスワードリセット"}
+          onClick={() => dispatch(resetPassword(email))}
         />
 
         <div className="module-spacer--medium"></div>
 
-        <Link to="signup">アカウントをお持ちでない方はこちら</Link>
-        <div className="module-spacer--small"></div>
-        <Link to="signin/reset">パスワードをお忘れの方はこちら</Link>
+        <Link to="/signin">ログイン画面へ戻る</Link>
       </div>
     </div>
   );
 };
 
-export default SignIn;
+export default Reset;
