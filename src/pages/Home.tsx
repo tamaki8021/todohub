@@ -1,5 +1,5 @@
 import React from "react";
-import { useHistory, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { push } from 'connected-react-router'
 import { useAppDispatch } from "../reducks/store/hooks";
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
