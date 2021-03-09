@@ -1,5 +1,6 @@
 import { createSlice, nanoid, PayloadAction } from "@reduxjs/toolkit"
 import { TodoState, TodoItemState, TodoItem } from "./types"
+import { fetchTodo } from './operations'
 
 
 const initialState: TodoState = {
@@ -45,6 +46,14 @@ const todosSlice = createSlice({
         byIds[todoId] = editData[0]
       }
     }
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchTodo.fulfilled, (state, action) => {
+      const id = action.payload.TodoId
+      const { contents, completed } = action.payload.allTodos[0]
+      state.allIds.push(id)
+      state.byIds[id] = {contents, completed}
+    })
   }
 })
 
