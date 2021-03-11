@@ -18,8 +18,8 @@ const todosSlice = createSlice({
 
         const byId: TodoItemState = {contents,completed:false}
 
-        state.allIds.push(id)
-        state.byIds[id] = byId
+        state.allIds = [...state.allIds, id]
+        state.byIds = {...state.byIds, [id]: byId}
       },
       prepare: (contents: string) => {
         const id = nanoid()
@@ -49,10 +49,14 @@ const todosSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchTodo.fulfilled, (state, action) => {
-      const id = action.payload.TodoId
-      const { contents, completed } = action.payload.allTodos[0]
-      state.allIds.push(id)
-      state.byIds[id] = {contents, completed}
+      const {TodosId, byTodo} = action.payload
+
+      state.allIds = action.payload.TodosId
+      TodosId.forEach(id => {
+        byTodo.forEach(data => {
+          state.byIds = {...state.byIds, [id]: data}
+        })
+      })
     })
   }
 })
