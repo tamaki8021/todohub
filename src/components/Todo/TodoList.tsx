@@ -1,9 +1,10 @@
-import React from "react";
-import { useAppSelector } from "../../reducks/store/hooks";
+import React, { useEffect } from "react";
+import { useAppSelector, useAppDispatch } from "../../reducks/store/hooks";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import TodoItems from "./TodoItems";
 import { selectVisibleTodos } from "../../reducks/filter/selector";
+import { fetchTodo } from '../../reducks/todos/operations'
 
 const useStyles = makeStyles({
   root: {
@@ -15,9 +16,14 @@ const useStyles = makeStyles({
 
 const TodoList = () => {
   const classes = useStyles();
+  const dispatch = useAppDispatch()
   const State = useAppSelector((state) => state.todo);
   const Filter = useAppSelector((state) => state.todo.visibilityFilter);
   const todos = selectVisibleTodos(State, Filter);
+
+  useEffect(() => {
+    dispatch(fetchTodo())
+  }, [])
 
   return (
     <div className={classes.root}>
