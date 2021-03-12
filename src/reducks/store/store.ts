@@ -2,14 +2,14 @@ import { configureStore, combineReducers, ThunkAction, Action } from '@reduxjs/t
 import { connectRouter, routerMiddleware } from "connected-react-router"
 import { createBrowserHistory } from 'history'
 
-import todoReducer from '../reducers/rootReducer' 
+import rootReducer from '../reducers/rootReducer' 
 import userSlice from '../users/slice'
 
 export const history = createBrowserHistory()
 
 const reducer = combineReducers({
   router: connectRouter(history),
-  todo: todoReducer,
+  todo: rootReducer,
   user: userSlice
 })
 
