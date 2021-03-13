@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import { useAppDispatch } from "../../reducks/store/hooks";
-import { addTodo } from "../../reducks/todos/slice";
-import { createTodo, fetchTodo } from '../../reducks/todos/operations'
+import { createTodo } from '../../reducks/todos/operations'
 import { TextField, FormControl, Button } from "@material-ui/core";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import AddToPhotosIcon from "@material-ui/icons/AddToPhotos";
-import { nanoid } from "@reduxjs/toolkit";
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -34,14 +32,12 @@ const AddTodo: React.FC = () => {
   };
 
   const handleSubmit = async () => {
-    dispatch(addTodo(input));
     await dispatch(createTodo({ contents: input,
-      completed: false,
-      id: nanoid()}))
+      completed: false,}))
     setInput("");
-    dispatch(fetchTodo())
   };
 
+  //Enterでの処理
   // const keyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
   //   if (e.keyCode === 13) {
   //     handleSubmit();

@@ -6,9 +6,9 @@ import { fetchTodo } from '../reducks/todos/operations'
 const Todo: React.FC = () => {
   const dispatch = useAppDispatch()
 
-  // useEffect(() => {
-  //     dispatch(fetchTodo())
-  // }, [])
+  useEffect(() => {
+    dispatch(fetchTodo())
+  }, [dispatch])
 
   return (
     <div>
