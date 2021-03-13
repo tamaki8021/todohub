@@ -26,8 +26,8 @@ const TodoList = () => {
         {todos.length <= 0
           ? "Todoはありません。"
           : todos.map((todo) => (
-              <Grid item>
-                <TodoItems key={todo.id} todo={todo} />
+              <Grid item key={todo.id}>
+                <TodoItems todo={todo} />
               </Grid>
             ))}
       </Grid>
