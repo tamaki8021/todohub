@@ -1,6 +1,5 @@
-import { createSlice, nanoid, PayloadAction } from "@reduxjs/toolkit"
+import { createSlice, nanoid, PayloadAction, current } from "@reduxjs/toolkit"
 import { TodoState, TodoItemState, TodoItem } from "./types"
-import { fetchTodo } from './operations'
 
 
 const initialState: TodoState = {
@@ -12,19 +11,18 @@ const todosSlice = createSlice({
   name: 'todo',
   initialState,
   reducers: {
-    addTodo: {
-      reducer: (state = initialState , action: PayloadAction<{id: string, contents:string}>) => {
+    addTodo: (state = initialState , action: PayloadAction<{id: string, contents:string}>) => {
         const { id, contents } = action.payload
 
         const byId: TodoItemState = {contents,completed:false}
 
-        state.allIds = [...state.allIds, id]
+        state.allIds.push(id)
         state.byIds = {...state.byIds, [id]: byId}
-      },
-      prepare: (contents: string) => {
-        const id = nanoid()
-        return {payload: {id, contents}}
-      }
+      // },
+      // prepare: (contents: string) => {
+      //   const id = nanoid()
+      //   return {payload: {id, contents}}
+      // }
     },
     toggleTodo: (state: TodoState, action: PayloadAction<{id: string}>) => {
       const byIds = state.byIds
@@ -45,22 +43,45 @@ const todosSlice = createSlice({
 
         byIds[todoId] = editData[0]
       }
-    }
-  },
-  extraReducers: (builder) => {
-    builder.addCase(fetchTodo.fulfilled, (state, action) => {
+    },
+    fetchTodos: (state, action) => {
       const {TodosId, byTodo} = action.payload
+      console.log(action.payload);
+      
+      state.allIds = TodosId
+      TodosId.forEach((id: string) => {
+        byTodo.forEach((data: any) => {
+          const todoId = data.id
+          const { contents, completed} = data
+          const newData = {contents, completed}
 
-      state.allIds = action.payload.TodosId
-      TodosId.forEach(id => {
-        byTodo.forEach(data => {
-          state.byIds = {...state.byIds, [id]: data}
+          if (id === todoId) {
+            state.byIds[id] = newData
+          }
+          
+          console.log(current(state.byIds));
         })
       })
-    })
-  }
+      console.log(current(state));
+    }
+  },
+  // extraReducers: (builder) => {
+  //   builder.addCase(fetchTodo.fulfilled, (state, action) => {
+  //     const {TodosId, byTodo} = action.payload
+  //     console.log(current(state));
+      
+  //     state.allIds = TodosId
+
+  //     TodosId.forEach((id: string) => {
+  //       byTodo.forEach((data: any) => {
+  //         state.byIds = {...state.byIds, [id]: data}
+  //       })
+  //     })
+  //     console.log(current(state));
+  //   })
+  // }
 })
 
-export const { addTodo, toggleTodo, editTodo } = todosSlice.actions
+export const { addTodo, toggleTodo, editTodo, fetchTodos } = todosSlice.actions
 
 export default todosSlice.reducer
