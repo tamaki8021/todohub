@@ -7,7 +7,8 @@ import SystemUpdateAltIcon from '@material-ui/icons/SystemUpdateAlt';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import RatingsProvide from "../UIkit/RatingsProvide";
 import { useAppDispatch } from "../../reducks/store/hooks";
-import { toggleTodo, editTodo } from "../../reducks/todos/slice";
+import { toggleTodo } from "../../reducks/todos/slice";
+import { changeTodo } from '../../reducks/todos/operations'
 import { returnCodeToBr } from '../../functions/common'
 
 type Props = {
@@ -36,11 +37,11 @@ const TodoItems: React.FC<Props> = ({ todo }) => {
     setEditContents(e.target.value)
   }
 
-  const handleEdit = () => {
+  const handleEdit = async () => {
     const newTodo = { ...todo };
     newTodo.contents = editContents;
 
-    dispatch(editTodo(newTodo));
+    await dispatch(changeTodo(newTodo))
     setEditContents("");
   };
 
