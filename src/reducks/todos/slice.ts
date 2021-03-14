@@ -22,23 +22,23 @@ const todosSlice = createSlice({
     },
     toggleTodo: (state: TodoState, action: PayloadAction<{ id: string }>) => {
       const byIds = state.byIds;
-
       const todo = state.allIds.find((todo) => todo === action.payload.id);
+
       if (todo) {
         byIds[todo].completed = !byIds[todo].completed;
       }
+      console.log(current(byIds));
+      
     },
     editTodo: (state: TodoState, action: PayloadAction<TodoItem>) => {
       const byIds = state.byIds;
       const { id, contents, completed } = action.payload;
 
-      const todoId = state.allIds.find((todo) => todo === id);
-
-      if (todoId) {
-        state.allIds.forEach((data) => {
-          if(data === id) {byIds[todoId] = {contents, completed}}
-        })
-      }
+      state.allIds.forEach((data) => {
+        if (data === id) {
+          byIds[id] = { contents, completed };
+        }
+      });
     },
     fetchTodos: (state, action) => {
       const { TodosId, byTodo } = action.payload;

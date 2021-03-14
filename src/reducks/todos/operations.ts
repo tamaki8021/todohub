@@ -1,6 +1,6 @@
 import { db } from '../../firebase'
 import { store } from '../store/store'
-import { fetchTodos, addTodo, editTodo } from './slice'
+import { fetchTodos, addTodo, editTodo, toggleTodo } from './slice'
 import { AppDispatch } from '../store/store'
 import { TodoItem } from './types'
 
@@ -44,6 +44,22 @@ export const createTodo = (todoData: any) => {
     dispatch(addTodo({id, contents}))
   }
 }
+
+//todoの切り替え
+export const doneTodo = (todo: TodoItem) => {
+  return async (dispatch: AppDispatch) => {
+    const uid = store.getState().user.uid
+    const { id, completed } = todo
+    await db.collection('users').doc(uid).collection('todos').doc(id).update({completed: !completed})
+    .then(() => {
+      dispatch(toggleTodo(todo))
+    }).catch((error) => {
+      console.error('Error writing document: ' + error)
+    })
+    
+  }
+}
+
 
 //todoの変更
 export const changeTodo = (newTodo: TodoItem) => {
