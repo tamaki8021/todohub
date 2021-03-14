@@ -1,53 +1,64 @@
-import { createSlice, nanoid, PayloadAction } from "@reduxjs/toolkit"
-import { TodoState, TodoItemState, TodoItem } from "./types"
-
+import { createSlice, PayloadAction, current } from "@reduxjs/toolkit";
+import { TodoState, TodoItemState, TodoItem } from "./types";
 
 const initialState: TodoState = {
   allIds: [],
-  byIds: {}
-}
+  byIds: {},
+};
 
 const todosSlice = createSlice({
-  name: 'todo',
+  name: "todo",
   initialState,
   reducers: {
-    addTodo: {
-      reducer: (state = initialState , action: PayloadAction<{id: string, contents:string}>) => {
-        const { id, contents } = action.payload
+    addTodo: (
+      state = initialState,
+      action: PayloadAction<{ id: string; contents: string }>
+    ) => {
+      const { id, contents } = action.payload;
+      const byId: TodoItemState = { contents, completed: false };
 
-        const byId: TodoItemState = {contents,completed:false}
-
-        state.allIds.push(id)
-        state.byIds[id] = byId
-      },
-      prepare: (contents: string) => {
-        const id = nanoid()
-        return {payload: {id, contents}}
-      }
+      state.allIds.push(id);
+      state.byIds = { ...state.byIds, [id]: byId };
     },
-    toggleTodo: (state: TodoState, action: PayloadAction<{id: string}>) => {
-      const byIds = state.byIds
+    toggleTodo: (state: TodoState, action: PayloadAction<{ id: string }>) => {
+      const byIds = state.byIds;
+      const todo = state.allIds.find((todo) => todo === action.payload.id);
 
-      const todo = state.allIds.find((todo) => todo === action.payload.id)
       if (todo) {
-        byIds[todo].completed = !byIds[todo].completed
+        byIds[todo].completed = !byIds[todo].completed;
       }
+      console.log(current(byIds));
+      
     },
     editTodo: (state: TodoState, action: PayloadAction<TodoItem>) => {
-      const byIds = state.byIds
-      const { id, contents, completed } = action.payload
-      
-      const todoId = state.allIds.find((todo) => todo === id)
+      const byIds = state.byIds;
+      const { id, contents, completed } = action.payload;
 
-      if (todoId) {
-        const editData = state.allIds.map(data => data === id ? {contents, completed} : state.byIds.todoId)
+      state.allIds.forEach((data) => {
+        if (data === id) {
+          byIds[id] = { contents, completed };
+        }
+      });
+    },
+    fetchTodos: (state, action) => {
+      const { TodosId, byTodo } = action.payload;
+      state.allIds = TodosId;
 
-        byIds[todoId] = editData[0]
-      }
-    }
-  }
-})
+      TodosId.forEach((id: string) => {
+        byTodo.forEach((data: any) => {
+          const todoId = data.id;
+          const { contents, completed } = data;
+          const newData = { contents, completed };
 
-export const { addTodo, toggleTodo, editTodo } = todosSlice.actions
+          if (id === todoId) {
+            state.byIds[id] = newData;
+          }
+        });
+      });
+    },
+  },
+});
 
-export default todosSlice.reducer
+export const { addTodo, toggleTodo, editTodo, fetchTodos } = todosSlice.actions;
+
+export default todosSlice.reducer;

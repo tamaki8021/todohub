@@ -19,14 +19,15 @@ const TodoList = () => {
   const Filter = useAppSelector((state) => state.todo.visibilityFilter);
   const todos = selectVisibleTodos(State, Filter);
 
+
   return (
     <div className={classes.root}>
       <Grid container spacing={4} justify="center">
         {todos.length <= 0
           ? "Todoはありません。"
           : todos.map((todo) => (
-              <Grid item>
-                <TodoItems key={todo.id} todo={todo} />
+              <Grid item key={todo.id}>
+                <TodoItems todo={todo} />
               </Grid>
             ))}
       </Grid>
