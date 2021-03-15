@@ -4,7 +4,7 @@ import { TodoState } from "./types"
 
 const initialState: TodoState = {
   allIds: [],
-  byIds: {}
+  byIds: {},
 }
 
 export const todosReducer = createReducer(initialState, (builder) => {
@@ -12,7 +12,7 @@ export const todosReducer = createReducer(initialState, (builder) => {
     .addCase(actions.addTodo, (state, action) => {
       const { id, contents } = action.payload
       state.allIds.push(id)
-      state.byIds[id] = {contents, completed: false}
+      state.byIds[id] = {contents, completed: false, evaluation: 0}
     })
     .addCase(actions.toggleTodo, (state,action) => {
       const { id } = action.payload

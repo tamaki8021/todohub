@@ -17,6 +17,7 @@ import RatingsProvide from "../UIkit/RatingsProvide";
 import { useAppDispatch } from "../../reducks/store/hooks";
 import { changeTodo, doneTodo } from "../../reducks/todos/operations";
 import { returnCodeToBr } from "../../functions/common";
+import { evaluationTodo } from '../../reducks/todos/slice'
 
 type Props = {
   todo: TodoItem;
@@ -56,6 +57,9 @@ const TodoItems: React.FC<Props> = ({ todo }) => {
     newValue: number
   ) => {
     setValue(newValue);
+    const newTodo = { ...todo }
+    newTodo.evaluation = newValue;
+    dispatch(evaluationTodo(newTodo))
   };
 
   return (

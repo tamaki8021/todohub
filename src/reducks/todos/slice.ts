@@ -11,11 +11,11 @@ const todosSlice = createSlice({
   initialState,
   reducers: {
     addTodo: (
-      state = initialState,
+      state,
       action: PayloadAction<{ id: string; contents: string }>
     ) => {
       const { id, contents } = action.payload;
-      const byId: TodoItemState = { contents, completed: false };
+      const byId: TodoItemState = { contents, completed: false, evaluation: 0 };
 
       state.allIds.push(id);
       state.byIds = { ...state.byIds, [id]: byId };
@@ -36,7 +36,7 @@ const todosSlice = createSlice({
 
       state.allIds.forEach((data) => {
         if (data === id) {
-          byIds[id] = { contents, completed };
+          byIds[id] = { contents, completed, evaluation: 0 };
         }
       });
     },
@@ -48,7 +48,7 @@ const todosSlice = createSlice({
         byTodo.forEach((data: any) => {
           const todoId = data.id;
           const { contents, completed } = data;
-          const newData = { contents, completed };
+          const newData: TodoItemState = { contents, completed, evaluation: 0 };
 
           if (id === todoId) {
             state.byIds[id] = newData;
@@ -56,9 +56,20 @@ const todosSlice = createSlice({
         });
       });
     },
+    evaluationTodo: (state, action) => {
+      const byIds = state.byIds;
+      const todo = state.allIds.find((todo) => todo === action.payload.id);
+
+      if (todo) {
+        byIds[todo].evaluation = action.payload.evaluation
+
+        state.allIds = state.allIds.filter((data) => data !== todo)
+        delete state.byIds.todo
+      }
+    }
   },
 });
 
-export const { addTodo, toggleTodo, editTodo, fetchTodos } = todosSlice.actions;
+export const { addTodo, toggleTodo, editTodo, fetchTodos, evaluationTodo } = todosSlice.actions;
 
 export default todosSlice.reducer;
