@@ -8,8 +8,9 @@ export interface TodoState {
 export interface TodoItemState {
   contents: string;
   completed: boolean;
-  evaluation: number
-} 
+  evaluation: number;
+  completed_at: string;
+}
 
 export interface TodoItem {
   contents: string;
