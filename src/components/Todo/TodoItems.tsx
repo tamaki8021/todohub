@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { TodoItem } from "../../reducks/todos/types";
 import { makeStyles } from "@material-ui/core/styles";
 import {
@@ -17,7 +17,8 @@ import RatingsProvide from "../UIkit/RatingsProvide";
 import { useAppDispatch } from "../../reducks/store/hooks";
 import { changeTodo, doneTodo } from "../../reducks/todos/operations";
 import { returnCodeToBr } from "../../functions/common";
-import { evaluationTodo } from '../../reducks/todos/slice'
+import { db } from "../../firebase/index";
+import { store } from "../../reducks/store/store";
 
 type Props = {
   todo: TodoItem;
@@ -36,6 +37,8 @@ const useStyles = makeStyles({
 const TodoItems: React.FC<Props> = ({ todo }) => {
   const classes = useStyles();
   const dispatch = useAppDispatch();
+  const uid = store.getState().user.uid;
+  const TodoData = store.getState().todo.todos.byIds;
 
   const [editContents, setEditContents] = useState("");
   const [value, setValue] = useState<number | null>(0);
@@ -52,15 +55,24 @@ const TodoItems: React.FC<Props> = ({ todo }) => {
     setEditContents("");
   };
 
-  const handleRatings = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    newValue: number
-  ) => {
-    setValue(newValue);
-    const newTodo = { ...todo }
-    newTodo.evaluation = newValue;
-    dispatch(evaluationTodo(newTodo))
-  };
+  useEffect(() => {
+    (async () => {
+      await db
+        .collection("users")
+        .doc(uid)
+        .collection("todos")
+        .get()
+        .then((doc) => {
+          doc.docs.forEach((snapshot) => {
+            const data = snapshot.data();
+            const evaluation = data.evaluation;
+            if (todo.id === data.id) {
+              setValue(evaluation);
+            }
+          });
+        });
+    })();
+  }, []);
 
   return (
     <Card className={classes.root}>
@@ -79,7 +91,7 @@ const TodoItems: React.FC<Props> = ({ todo }) => {
         )}
       </CardContent>
       <CardActions className={classes.cardAction}>
-        <RatingsProvide value={value} onChange={handleRatings} />
+        <RatingsProvide values={value ? value : 0} id={todo.id} />
         {editContents !== "" ? (
           <div>
             <Tooltip title="Update" placement="top">
