@@ -30,7 +30,7 @@ const Header = () => {
       <AppBar>
         <Toolbar>
           <Link to="/" className={classes.title}>
-            <Typography variant="h6">Todo Motivation</Typography>
+            <Typography variant="h6">TodoHub</Typography>
           </Link>
           {isSignedIn ? <ClosableDrawer /> : <HeaderMenu />}
         </Toolbar>

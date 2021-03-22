@@ -41,3 +41,23 @@
   font-size: 1.563rem;
   margin: 0 auto 1rem auto;
 }
+
+/*
+ * Gitlab color scale
+ */
+
+.react-calendar-heatmap .color-gitlab-0 {
+  fill: #ededed;
+}
+.react-calendar-heatmap .color-gitlab-3 {
+  fill: #acd5f2;
+}
+.react-calendar-heatmap .color-gitlab-5 {
+  fill: #7fa8d1;
+}
+.react-calendar-heatmap .color-gitlab-7 {
+  fill: #49729b;
+}
+.react-calendar-heatmap .color-gitlab-10 {
+  fill: #254e77;
+}

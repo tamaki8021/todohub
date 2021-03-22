@@ -58,8 +58,8 @@ const ClosableDrawer = () => {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
-        <IconButton color="inherit">
+      <MenuItem onClick={() => dispatch(push('todo/mypage'))}>
+        <IconButton color="inherit" >
           <AccountCircle />
         </IconButton>
         <p>Profile</p>

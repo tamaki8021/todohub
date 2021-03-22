@@ -1,8 +1,9 @@
-import { db } from '../../firebase'
+import { db, FirebaseTimestamp } from '../../firebase'
 import { store } from '../store/store'
 import { fetchTodos, addTodo, editTodo, toggleTodo } from './slice'
 import { AppDispatch } from '../store/store'
 import { TodoItem } from './types'
+
 
 // Todoの取得
 export const fetchTodo = () => {
@@ -24,12 +25,14 @@ export const fetchTodo = () => {
       id: doc.data().id,
       contents: doc.data().contents,
       completed: doc.data().completed,
+      completed_at: doc.data().completed_at
     }));
 
     const passData = { TodosId, byTodo }
     dispatch(fetchTodos(passData))
   }
 };
+
 
 //todoの作成
 export const createTodo = (todoData: any) => {
@@ -45,12 +48,15 @@ export const createTodo = (todoData: any) => {
   }
 }
 
+
 //todoの切り替え
-export const doneTodo = (todo: TodoItem) => {
+export const doneTodo = (todo: any) => {
   return async (dispatch: AppDispatch) => {
     const uid = store.getState().user.uid
+    const timestamp = FirebaseTimestamp.now().toDate().toLocaleDateString()
     const { id, completed } = todo
-    await db.collection('users').doc(uid).collection('todos').doc(id).update({completed: !completed})
+    todo['completed_at'] = timestamp
+    await db.collection('users').doc(uid).collection('todos').doc(id).update({completed: !completed, completed_at: timestamp})
     .then(() => {
       dispatch(toggleTodo(todo))
     }).catch((error) => {
@@ -72,5 +78,16 @@ export const changeTodo = (newTodo: TodoItem) => {
       }).catch((error) => {
         console.error('Error writing document: ' + error)
       })
+  }
+}
+
+//todoの評価
+export const valutionTodo = (newTodo: any) => {
+  return async () => {
+    const uid = store.getState().user.uid;
+    const id = newTodo.id
+    const evaluation = newTodo.newValued
+    await db.collection('users').doc(uid).collection('todos').doc(id).update({evaluation: evaluation}).catch((error) => {console.log('writing error' + error);}
+    )
   }
 }
