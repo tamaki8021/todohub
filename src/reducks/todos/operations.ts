@@ -85,11 +85,9 @@ export const changeTodo = (newTodo: TodoItem) => {
 export const valutionTodo = (newTodo: any) => {
   return async () => {
     const uid = store.getState().user.uid;
-    console.log(newTodo);
     const id = newTodo.id
-    const evaluation = newTodo.newValue
+    const evaluation = newTodo.newValued
     await db.collection('users').doc(uid).collection('todos').doc(id).update({evaluation: evaluation}).catch((error) => {console.log('writing error' + error);}
     )
-    // await db.collection('users').doc(uid).collection('valution').doc(id).set({})
   }
 }
