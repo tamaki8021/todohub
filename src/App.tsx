@@ -6,9 +6,9 @@ const App: React.FC = () => {
   return (
     <React.Fragment>
       <Header />
-      <div className="c-main">
+      <main>
         <Router />
-      </div>
+      </main>
     </React.Fragment>
   );
 };
