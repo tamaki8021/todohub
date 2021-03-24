@@ -1,6 +1,7 @@
 import React from "react";
 import Router from './Router'
 import { Header}  from './components/Header'
+import { Footer } from './components/UIkit'
 
 const App: React.FC = () => {
   return (
@@ -9,6 +10,7 @@ const App: React.FC = () => {
       <main>
         <Router />
       </main>
+      <Footer />
     </React.Fragment>
   );
 };
