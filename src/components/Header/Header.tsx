@@ -2,7 +2,7 @@ import React from "react";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import logo from '../../assets/img/log1.png'
+import logo from '../../assets/img/logo4.png'
 import { Link } from "react-router-dom";
 import { useAppSelector } from "../../reducks/store/hooks";
 import { HeaderMenu, ClosableDrawer } from "./index";

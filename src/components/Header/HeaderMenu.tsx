@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme: Theme) =>
       width: 254,
     },
     text: {
-      fontSize: '1.7rem',
+      fontSize: '2rem',
     },
     sectionDesktop: {
       display: "none",
@@ -80,7 +80,8 @@ const HeaderMenu = () => {
         <Button
           className={classes.button}
           variant="contained"
-          color="primary"
+          color='primary'
+          size='large'
           onClick={() => dispatch(push("/signin"))}
         >
           ログイン
@@ -89,6 +90,7 @@ const HeaderMenu = () => {
           className={classes.button}
           variant="contained"
           color="primary"
+          size='large'
           onClick={() => dispatch(push("/signup"))}
         >
           登録する
