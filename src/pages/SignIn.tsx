@@ -22,10 +22,6 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
       padding: '1rem'
     }
   },
-  img: {
-    margin: '2rem auto',
-    textAlign: 'center',
-  }
 }))
 
 const Title = React.memo(() => (

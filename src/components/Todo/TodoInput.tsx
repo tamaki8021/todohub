@@ -8,6 +8,11 @@ import AddToPhotosIcon from "@material-ui/icons/AddToPhotos";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    container: {
+      margin: '0 auto',
+      maxWidth: '400px',
+      padding: '0 30px'
+    },
     form: {
       margin: "1rem",
       minWidth: 275,
@@ -42,7 +47,7 @@ const AddTodo: React.FC = () => {
   // };
 
   return (
-    <div className="c-section-container">
+    <div className={classes.container}>
       <FormControl className={classes.form}>
         <TextField
           label="Todo"

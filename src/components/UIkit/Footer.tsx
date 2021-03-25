@@ -9,6 +9,7 @@ import InstagramIcon from "@material-ui/icons/Instagram";
 const useStyles = makeStyles((theme: Theme) => createStyles({
   footer: {
     backgroundColor: "rgba(0, 0, 0, 0.05)",
+    marginTop: 'auto'
   },
   foot: {
     padding: "12px",
