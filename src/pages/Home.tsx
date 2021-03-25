@@ -81,7 +81,7 @@ const Home: React.FC = () => {
           <Typography variant="subtitle1" className={classes.text}>
             タスクを管理し、達成度を可視化することができるので継続してやる気を保つことができます。
           </Typography>
-          <Button variant="contained" size="large" color="primary" className={classes.button} onClick={() => dispatch(push("/signin"))}>
+          <Button variant="contained" size="large" color="primary" className={classes.button} onClick={() => dispatch(push("/signup"))}>
             アカウントを作成
           </Button>
         </div>
