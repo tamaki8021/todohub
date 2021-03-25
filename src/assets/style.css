@@ -19,7 +19,8 @@
 .c-section-container {
   margin: 0 auto;
   max-width: 400px;
-  padding: 100px 1rem;
+  padding: 170px 0 265px;
+  height: auto;
   width: calc(100% - 2rem);
 }
 
@@ -36,9 +37,9 @@
 }
 
 .u-text__headline {
-  color: #4dd0e1;
+  color: #5E6C84;
   font-size: 1.563rem;
-  margin: 0 auto 1rem auto;
+  margin: 0 auto 1rem;
 }
 
 /*
