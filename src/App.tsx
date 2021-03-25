@@ -5,13 +5,13 @@ import { Footer } from './components/UIkit'
 
 const App: React.FC = () => {
   return (
-    <React.Fragment>
+    <div className='wrapper'>
       <Header />
-      <main>
+      <main className='main'>
         <Router />
       </main>
       <Footer />
-    </React.Fragment>
+    </div>
   );
 };
 

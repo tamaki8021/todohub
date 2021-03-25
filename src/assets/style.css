@@ -42,6 +42,16 @@
   margin: 0 auto 1rem;
 }
 
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main {
+  flex-grow: 2;
+}
+
 /*
  * Gitlab color scale
  */
