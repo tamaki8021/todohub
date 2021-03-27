@@ -15,7 +15,11 @@ import SystemUpdateAltIcon from "@material-ui/icons/SystemUpdateAlt";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import RatingsProvide from "../UIkit/RatingsProvide";
 import { useAppDispatch } from "../../reducks/store/hooks";
-import { changeTodo, doneTodo } from "../../reducks/todos/operations";
+import {
+  changeTodo,
+  doneTodo,
+  valutionTodo,
+} from "../../reducks/todos/operations";
 import { returnCodeToBr } from "../../functions/common";
 import { db } from "../../firebase/index";
 import { store } from "../../reducks/store/store";
@@ -38,10 +42,12 @@ const TodoItems: React.FC<Props> = ({ todo }) => {
   const classes = useStyles();
   const dispatch = useAppDispatch();
   const uid = store.getState().user.uid;
-  const TodoData = store.getState().todo.todos.byIds;
+  const id = todo.id;
+  const completed = todo.completed
+  
 
   const [editContents, setEditContents] = useState("");
-  const [value, setValue] = useState<number | null>(0);
+  const [rating, setRating] = useState<number | null>(0);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEditContents(e.target.value);
@@ -53,6 +59,11 @@ const TodoItems: React.FC<Props> = ({ todo }) => {
 
     await dispatch(changeTodo(newTodo));
     setEditContents("");
+  };
+
+  const handleRatingChange = (value: any) => {
+    setRating(value);
+    dispatch(valutionTodo({ value, id }));
   };
 
   useEffect(() => {
@@ -67,7 +78,7 @@ const TodoItems: React.FC<Props> = ({ todo }) => {
             const data = snapshot.data();
             const evaluation = data.evaluation;
             if (todo.id === data.id) {
-              setValue(evaluation);
+              setRating(evaluation);
             }
           });
         });
@@ -91,7 +102,11 @@ const TodoItems: React.FC<Props> = ({ todo }) => {
         )}
       </CardContent>
       <CardActions className={classes.cardAction}>
-        <RatingsProvide values={value ? value : 0} id={todo.id} />
+        {
+          completed ? 
+          <RatingsProvide value={rating} onChange={handleRatingChange} disabled={false}/> : <RatingsProvide disabled={true} />
+        }
+
         {editContents !== "" ? (
           <div>
             <Tooltip title="Update" placement="top">

@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import Rating from "@material-ui/lab/Rating";
 import Box from "@material-ui/core/Box";
-import { useAppDispatch } from "../../reducks/store/hooks";
-import { valutionTodo } from "../../reducks/todos/operations";
 
 const labels: { [index: string]: string } = {
   1: "Useless+",
@@ -13,30 +11,26 @@ const labels: { [index: string]: string } = {
 };
 
 const RatingsProvide = (props: any) => {
-  const dispatch = useAppDispatch();
-  const { id, values } = props;
+  const { value, onChange, disabled } = props;
+
   const [hover, setHover] = useState(-1);
-  const [value, setValue] = useState<number | null>(values);
+
+  const handleChange = (value: any) => {
+    onChange(value);
+  };
 
   return (
     <div>
-      {values === 0 ? (
-        <Rating
-          name="hover-feedback"
-          value={value}
-          onChange={(event, newValue) => {
-            setValue(newValue);
-            dispatch(valutionTodo({ newValue, id }));
-          }}
-          onChangeActive={(event, newHover) => {
-            setHover(newHover);
-          }}
-        />
-      ) : (
-        <Rating name="unique-rating" value={values} />
-      )}
-      {props.value !== null && (
-        <Box ml={2}>{labels[hover !== -1 ? hover : props.value]}</Box>
+      <Rating
+        value={value}
+        disabled={disabled}
+        onChangeActive={(event, newHover) => {
+          setHover(newHover);
+        }}
+        onChange={(e, newvalue) => handleChange(newvalue)}
+      />
+      {value !== null && (
+        <Box ml={2}>{labels[hover !== -1 ? hover : value]}</Box>
       )}
     </div>
   );
