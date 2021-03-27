@@ -2,11 +2,10 @@ import React from "react";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
+import logo from "../../assets/img/logo4.png";
 import { Link } from "react-router-dom";
 import { useAppSelector } from "../../reducks/store/hooks";
 import { HeaderMenu, ClosableDrawer } from "./index";
-
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -30,7 +29,7 @@ const Header = () => {
       <AppBar>
         <Toolbar>
           <Link to="/" className={classes.title}>
-            <Typography variant="h6">TodoHub</Typography>
+            <img src={logo} alt='TodoHub'/> 
           </Link>
           {isSignedIn ? <ClosableDrawer /> : <HeaderMenu />}
         </Toolbar>

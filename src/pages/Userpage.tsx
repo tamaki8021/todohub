@@ -10,6 +10,12 @@ import { AccountCircle } from "@material-ui/icons";
 import { HeatmapCalendar } from "../components/User";
 
 const useStyles = makeStyles({
+  container: {
+    margin: "0 auto",
+    maxWidth: "400px",
+    padding: "170px 0 375px",
+    height: "auto",
+  },
   center: {
     margin: "0 auto",
     width: 200,
@@ -29,7 +35,7 @@ const Userpage: React.FC = () => {
   const username = useAppSelector((state) => state.user.username);
 
   return (
-    <div className="c-section-container">
+    <div className={classes.container}>
       <Typography variant="h5">マイページ</Typography>
 
       <div className="module-spacer--small"></div>
@@ -40,7 +46,7 @@ const Userpage: React.FC = () => {
             <AccountCircle />
           </Grid>
           <Grid item>
-            <TextField id="input-with-icon-grid" label={username} />
+            <TextField value={username} />
           </Grid>
         </Grid>
       </div>
