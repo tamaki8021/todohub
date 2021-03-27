@@ -8,6 +8,7 @@ import { signIn } from "../reducks/users/operations";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
+import Divider from '@material-ui/core/Divider';
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 
 
@@ -22,6 +23,9 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
       padding: '1rem'
     }
   },
+  divider: {
+    margin: '10px, 0'
+  }
 }))
 
 const Title = React.memo(() => (
@@ -103,6 +107,8 @@ const SignIn = () => {
               label={"ログインする"}
               onClick={() => dispatch(signIn(email, password))}
             />
+            <Divider className={classes.divider} />
+            <Button label={'簡単ログイン'} onClick={() => dispatch(signIn('test@gmail.com', 'testpass'))} />
 
             <div className="module-spacer--medium"></div>
 
