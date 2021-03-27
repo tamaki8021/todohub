@@ -30,29 +30,31 @@ const HeatmapCalendar = () => {
             const completed_at: any = data.completed_at;
             const evaluation: number = data.evaluation;
             const newcount = valuesArray.find((d) => {
-              //同じ日付のカウントをプラス
+              //同じ日付のカウント
               if (d.date === completed_at) {
-                if (d.date) {
                   let sumcount = d.count! + evaluation;
-                  const duplicate = valuesArray.filter(
-                    (value, index, self) =>
-                      self
-                        .slice(0, self.length)
-                        .filter((data) => data.date === value.date).length >= 2
-                  );
 
+                  //配列に入っている重複データを取り出す
+                  // const duplicate = valuesArray.filter(
+                  //   (value, index, self) =>
+                  //     self
+                  //       .slice(0, self.length)
+                  //       .filter((data) => data.date === value.date).length >= 2
+                  // );
+                  
                   // カウント（評価）の平均
-                  sumcount /= duplicate.length;
+                  // if (duplicate.length !== 0) {
+                  //   sumcount /= duplicate.length;
+                  // } 
 
                   return (d.count = sumcount);
-                }
-              }
+              } 
             });
 
             const valuesData = newcount
               ? newcount
               : { date: completed_at, count: evaluation };
-
+              
             valuesArray.push(valuesData);
           });
 
