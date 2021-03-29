@@ -23,9 +23,6 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
       padding: '1rem'
     }
   },
-  divider: {
-    margin: '10px, 0'
-  }
 }))
 
 const Title = React.memo(() => (
@@ -107,7 +104,7 @@ const SignIn = () => {
               label={"ログインする"}
               onClick={() => dispatch(signIn(email, password))}
             />
-            <Divider className={classes.divider} />
+            <div className="module-spacer--small"></div>
             <Button label={'簡単ログイン'} onClick={() => dispatch(signIn('test@gmail.com', 'testpass'))} />
 
             <div className="module-spacer--medium"></div>
