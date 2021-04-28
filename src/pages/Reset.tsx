@@ -12,11 +12,8 @@ import CardContent from "@material-ui/core/CardContent";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    container: {
-      margin: "0 auto",
-      maxWidth: "400px",
-      padding: "170px 0 365px",
-      height: "auto",
+    actionCenter: {
+      justifyContent: 'center',
     },
     card: {
       padding: "1rem",
@@ -70,7 +67,7 @@ const Reset: React.FC = () => {
   );
 
   return (
-    <div className={classes.container}>
+    <div className="c-section-container">
       <Card className={classes.card}>
         <CardContent>
           <Title />
@@ -85,7 +82,7 @@ const Reset: React.FC = () => {
             onChange={inputEmail}
           />
         </CardContent>
-        <CardActions>
+        <CardActions className={classes.actionCenter}>
           <div className={classes.button}>
             <Button
               label={"パスワードリセット"}
