@@ -101,7 +101,7 @@ const SignIn = () => {
             onChange={inputPassword}
           />
         </CardContent>
-        <CardActions>
+        <CardActions className={classes.actionCenter}>
           <div className={classes.button}>
             <Button
               label={"ログインする"}
