@@ -12,8 +12,11 @@ import CardContent from "@material-ui/core/CardContent";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    actionCenter: {
-      justifyContent: 'center',
+    container: {
+      margin: "0 auto",
+      maxWidth: "400px",
+      padding: "170px 0 195px",
+      height: "auto",
     },
     card: {
       padding: "1rem",
@@ -91,7 +94,7 @@ const SignUp = () => {
   );
 
   return (
-    <div className="c-section-container">
+    <div className={classes.container}>
       <Card className={classes.card}>
         <CardContent>
           <Title />
@@ -139,7 +142,7 @@ const SignUp = () => {
             onChange={inputConfirmPassword}
           />
         </CardContent>
-        <CardActions className={classes.actionCenter}>
+        <CardActions>
           <div className={classes.button}>
             <Button
               label={"アカウントを登録する"}
